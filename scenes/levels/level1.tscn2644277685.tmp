@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://bgaae75p0g5ab"]
+
+[ext_resource type="Script" uid="uid://ch8fr6ylby7y2" path="res://scenes/levels/level.gd" id="1_dd0lh"]
+[ext_resource type="PackedScene" uid="uid://c2hc4wbbfjp5w" path="res://scenes/wind.tscn" id="2_dd0lh"]
+[ext_resource type="PackedScene" uid="uid://qqm5ltxvpwc5" path="res://scenes/collect/item.tscn" id="3_dd0lh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3g4x6"]
+size = Vector2(1752.5, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83ld5"]
+size = Vector2(956, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x6ivy"]
+size = Vector2(727, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4tcl0"]
+size = Vector2(3286.5, 75)
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_dd0lh")
+
+[node name="Wind" parent="." instance=ExtResource("2_dd0lh")]
+position = Vector2(6487, 501)
+
+[node name="Wind2" parent="." instance=ExtResource("2_dd0lh")]
+position = Vector2(6980, 510)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(871.75, 18)
+shape = SubResource("RectangleShape2D_3g4x6")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(2184, 109)
+shape = SubResource("RectangleShape2D_83ld5")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+polygon = PackedVector2Array(2570, 100, 2781, 20, 2799, 56, 2636, 113)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(3768, 114)
+shape = SubResource("RectangleShape2D_x6ivy")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(4272.75, 548.5)
+shape = SubResource("RectangleShape2D_4tcl0")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Item" parent="Node2D" instance=ExtResource("3_dd0lh")]
+position = Vector2(1422, -160)
+x = -1
+
+[node name="Item2" parent="Node2D" instance=ExtResource("3_dd0lh")]
+position = Vector2(837, -163)
+
+[node name="Item3" parent="Node2D" instance=ExtResource("3_dd0lh")]
+position = Vector2(1799, -111)
+x = 1

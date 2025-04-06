@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://bgaae75p0g5ab"]
+
+[ext_resource type="Script" uid="uid://ch8fr6ylby7y2" path="res://scenes/levels/level.gd" id="1_dd0lh"]
+[ext_resource type="PackedScene" uid="uid://c2hc4wbbfjp5w" path="res://scenes/wind.tscn" id="2_dd0lh"]
+[ext_resource type="PackedScene" uid="uid://qqm5ltxvpwc5" path="res://scenes/collect/item.tscn" id="3_dd0lh"]
+[ext_resource type="PackedScene" uid="uid://dtmy0shj81mr1" path="res://scenes/obstacles/paper.tscn" id="4_bfxgj"]
+[ext_resource type="PackedScene" uid="uid://5f5nee2ogsrs" path="res://scenes/collect/goal.tscn" id="5_dywbp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3g4x6"]
+size = Vector2(1596.25, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dd0lh"]
+size = Vector2(1629.5, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfxgj"]
+size = Vector2(1254, 20)
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_dd0lh")
+
+[node name="Wind" parent="." instance=ExtResource("2_dd0lh")]
+position = Vector2(6487, 501)
+
+[node name="Wind2" parent="." instance=ExtResource("2_dd0lh")]
+position = Vector2(6980, 510)
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Item" parent="Node2D" instance=ExtResource("3_dd0lh")]
+position = Vector2(1422, -160)
+x = -1
+
+[node name="Item2" parent="Node2D" instance=ExtResource("3_dd0lh")]
+position = Vector2(837, -163)
+
+[node name="Item3" parent="Node2D" instance=ExtResource("3_dd0lh")]
+position = Vector2(1799, -111)
+x = 1
+
+[node name="Blocks" type="Node" parent="."]
+
+[node name="Blabsldasd" type="StaticBody2D" parent="Blocks"]
+modulate = Color(4, 1, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/Blabsldasd"]
+position = Vector2(755.875, 525)
+shape = SubResource("RectangleShape2D_3g4x6")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Blocks"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D"]
+position = Vector2(2275.25, 701)
+shape = SubResource("RectangleShape2D_dd0lh")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Blocks"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D2"]
+position = Vector2(3686, 860)
+rotation = -0.184515
+shape = SubResource("RectangleShape2D_bfxgj")
+
+[node name="Obstacles" type="Node" parent="."]
+
+[node name="Node2D" parent="Obstacles" instance=ExtResource("4_bfxgj")]
+position = Vector2(1488, 463)
+
+[node name="Goal" parent="." instance=ExtResource("5_dywbp")]
+position = Vector2(4174, 677)

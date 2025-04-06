@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtmy0shj81mr1"]
+
+[ext_resource type="Script" uid="uid://bba4hu8t00jm0" path="res://scenes/obstacles/paper.gd" id="1_8o5wd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wxrc4"]
+radius = 34.0
+height = 86.0
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_8o5wd")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_wxrc4")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-55, 1)
+rotation = -2.42879
+polygon = PackedVector2Array(-2.56427, 35.2622, -22.3621, 73.5251, -67.4853, 21.3245, -33.1978, -1.70517)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
