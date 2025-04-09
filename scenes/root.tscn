@@ -12,7 +12,9 @@ glow_intensity = 0.33
 script = ExtResource("1_lrqlo")
 
 [node name="Player" parent="." instance=ExtResource("1_j5px3")]
-position = Vector2(85, 94)
+position = Vector2(99, -113)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_twpsu")
+
+[node name="Line2D" type="Line2D" parent="."]

@@ -1,9 +1,11 @@
 extends Node2D
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var level = Startup.currentLevel.instantiate()
-	get_tree().root.add_child(level)
+	# var level = Startup.currentLevel.instantiate()
+	
+	get_tree().root.add_child(Startup.currentLevel)
 	pass # Replace with function body.
 
 

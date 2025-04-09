@@ -1,5 +1,4 @@
 extends CharacterBody2D
-@onready var scissor_aim = $ScissorAim
 @onready var player_stone = $PlayerStone
 @onready var player_paper = $PlayerPaper
 @onready var player_scissor = $PlayerScissor
@@ -9,12 +8,7 @@ extends CharacterBody2D
 const SPEED = 600.0
 const JUMP_VELOCITY = -400.0
 
-var state = ["rock","paper","scissor","aim","dash"]
-var stateIndex = 0
-
 var currentState = "rock"
-
-var current_collision : Node = null
 
 var current_floor = null
 
@@ -78,7 +72,7 @@ func _physics_process(delta):
 		else:
 
 			velocity.y = move_toward(velocity.y, 100, 30)
-			velocity.x = move_toward(velocity.x, SPEED / 2, 30)
+			velocity.x = move_toward(velocity.x, SPEED, 30)
 			
 		
 				# Get the input direction and handle the movement/deceleration.
@@ -100,7 +94,7 @@ func _physics_process(delta):
 		
 			velocity += get_gravity() * delta
 			
-			velocity.x = move_toward(velocity.x, SPEED/2, SPEED/10)
+			velocity.x = move_toward(velocity.x, SPEED, SPEED/10)
 			
 			player_scissor.rotation += 0.25
 			
@@ -113,15 +107,12 @@ func _physics_process(delta):
 		if floor != current_floor:
 			#reset_previous_floor_color()
 			current_floor = floor
-			print("new floor")
-			print(floor)
 			current_floor.modulate = Color(4,0,0)
 			#change_floor_color(current_floor, Color(1, 0, 0)) # Example: Red
 	else:
 		if current_floor:
 			current_floor.modulate = Color(1,0,0)
 			current_floor = null
-			print("exit floor")
 			#reset_previous_floor_color()
 	
 	#var nextCollision = null
@@ -148,7 +139,6 @@ func _physics_process(delta):
 	
 func wind():
 	print("wind!")
-	print(state[stateIndex])
 	if currentState == "paper":
 		print("up!")
 		velocity.y = -600

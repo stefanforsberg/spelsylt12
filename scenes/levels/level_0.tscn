@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://bo6m1c4walsvt"]
+
+[ext_resource type="Script" uid="uid://ba81t073o122i" path="res://scenes/levels/level_0.gd" id="1_sxr8l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ob6x"]
+size = Vector2(3193, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sxr8l"]
+size = Vector2(2916, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bw3rj"]
+size = Vector2(2645, 20)
+
+[sub_resource type="Theme" id="Theme_5ob6x"]
+default_font_size = 96
+
+[node name="Level0" type="Node2D"]
+script = ExtResource("1_sxr8l")
+
+[node name="Blocks" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Blocks"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D"]
+position = Vector2(1561.5, 490)
+shape = SubResource("RectangleShape2D_5ob6x")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Blocks"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D2"]
+position = Vector2(5289, 657)
+shape = SubResource("RectangleShape2D_sxr8l")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Blocks"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D3"]
+position = Vector2(9942, 868)
+shape = SubResource("RectangleShape2D_bw3rj")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_5ob6x")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+offset_left = 16.0
+offset_top = 149.0
+offset_right = 1094.0
+offset_bottom = 517.0
+text = "Welcome to the
+tutorial level"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Control"]
+offset_left = 2121.0
+offset_top = -108.0
+offset_right = 3199.0
+offset_bottom = 453.0
+text = "You can change form. Try pressing \"e\" to change to scissor and dash"
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="Control"]
+offset_left = 5612.0
+offset_top = 213.0
+offset_right = 6690.0
+offset_bottom = 576.0
+text = "At the gap press \"e\" again for dash"
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="Control"]
+offset_left = 7432.0
+offset_top = 351.0
+offset_right = 8510.0
+offset_bottom = 765.0
+text = "And now press \"w\" to change to paper and glide!"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Control"]
+offset_left = 3845.0
+offset_top = 314.0
+offset_right = 4923.0
+offset_bottom = 475.0
+bbcode_enabled = true
+text = "[wave amp=50.0 freq=5.0 connected=1]Good job![/wave]"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(13, 1243, 15217, 1310, 11756, 3475, -5, 3090)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

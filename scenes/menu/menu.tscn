@@ -24,4 +24,21 @@ offset_right = 694.0
 offset_bottom = 206.0
 text = "Level 1"
 
+[node name="Button2" type="Button" parent="."]
+offset_left = 361.0
+offset_top = 240.0
+offset_right = 658.0
+offset_bottom = 279.0
+text = "Level 2
+"
+
+[node name="Button3" type="Button" parent="."]
+offset_left = 306.0
+offset_top = 113.0
+offset_right = 751.0
+offset_bottom = 147.0
+text = "Tutorial level"
+
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="Button2" to="." method="_on_button_2_button_down"]
+[connection signal="button_down" from="Button3" to="." method="_on_button_3_button_down"]
