@@ -1,28 +1,28 @@
 extends Node2D
 
+@onready var v_box_container = $VBoxContainer
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	
+	Startup.loadGame()
+	
+	for key in Startup.levels.keys():
+		print(key)
+		var button = Button.new()
+		button.text = str(key + " | best " + "%.2f" % Startup.high_score[key])
+		button.name = str(key)  # Optional: name the button for identification
+		button.pressed.connect(_on_button_pressed.bind(button))  # Connect with a bound parameter
+		v_box_container.add_child(button)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
-func _on_button_button_down():
-	Startup.setCurrentLevel("1")
-	Startup.startLevel()
-	#get_tree().change_scene_to_packed("root_scene")
-
-
-func _on_button_2_button_down():
-	Startup.setCurrentLevel("2")
+func _on_button_pressed(button:Button):
+	Startup.setCurrentLevel(button.name)
 	Startup.startLevel()
 
 
-func _on_button_3_button_down():
-	Startup.setCurrentLevel("0")
-	Startup.startLevel()
+func _on_check_button_toggled(toggled_on):
+	if toggled_on:
+		Startup.musicOn()
+	else:
+		Startup.musicOff()

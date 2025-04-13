@@ -1,13 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://crr66uxsc6t4n"]
+[gd_scene load_steps=10 format=3 uid="uid://crr66uxsc6t4n"]
 
-[ext_resource type="Texture2D" uid="uid://c68aaxksjv001" path="res://player_stone.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://blcsx57346pq7" path="res://scenes/player.gd" id="1_g2els"]
-[ext_resource type="Texture2D" uid="uid://cm227oytxy52i" path="res://player_paper.png" id="3_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://qy78kkc05875" path="res://player_scissor.png" id="4_dqkch"]
+[ext_resource type="Texture2D" uid="uid://cj0qohrmks42a" path="res://img/player/rock.png" id="2_dqkch"]
+[ext_resource type="Texture2D" uid="uid://dsv1i7r320lmx" path="res://img/player/paper.png" id="3_qlg0r"]
+[ext_resource type="Shader" uid="uid://dvynvu38vku6b" path="res://scenes/shaders/paper_bag.gdshader" id="3_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://vwjntesf0ow5" path="res://img/player/scissor.png" id="4_tuyoq"]
+
+[sub_resource type="Curve" id="Curve_dqkch"]
+_data = [Vector2(0.0397727, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_dqkch"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fjrip"]
+shader = ExtResource("3_tuyoq")
+shader_parameter/amplitude = 2.526
+shader_parameter/frequency = 8.736
+shader_parameter/speed = 3.315
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vyb7"]
-radius = 27.0
-height = 56.0
+radius = 43.0
+height = 86.0
 
 [node name="Player" type="Node2D"]
 
@@ -16,18 +30,41 @@ script = ExtResource("1_g2els")
 
 [node name="FloorDetector" type="RayCast2D" parent="CharacterBody2D"]
 
-[node name="PlayerStone" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Dash" type="CPUParticles2D" parent="CharacterBody2D"]
+position = Vector2(98, -49)
+emitting = false
+amount = 100
+lifetime = 1.55
+one_shot = true
+speed_scale = 3.59
+explosiveness = 0.15
+lifetime_randomness = 0.24
+direction = Vector2(-0.5, 0.3)
+spread = 8.63
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.1
+initial_velocity_max = 40.4
+angular_velocity_max = 130.91
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_dqkch")
+color = Color(1, 1, 1, 0.67451)
+color_ramp = SubResource("Gradient_dqkch")
+
+[node name="Sprites" type="Node2D" parent="CharacterBody2D"]
+
+[node name="PlayerStone" type="Sprite2D" parent="CharacterBody2D/Sprites"]
 position = Vector2(-2, -3)
-texture = ExtResource("1_3vyb7")
+texture = ExtResource("2_dqkch")
 
-[node name="PlayerPaper" type="Sprite2D" parent="CharacterBody2D"]
+[node name="PlayerPaper" type="Sprite2D" parent="CharacterBody2D/Sprites"]
 visible = false
-texture = ExtResource("3_qhqgy")
+material = SubResource("ShaderMaterial_fjrip")
+texture = ExtResource("3_qlg0r")
 
-[node name="PlayerScissor" type="Sprite2D" parent="CharacterBody2D"]
+[node name="PlayerScissor" type="Sprite2D" parent="CharacterBody2D/Sprites"]
 visible = false
 rotation = 1.5708
-texture = ExtResource("4_dqkch")
+texture = ExtResource("4_tuyoq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(-2, -2)
@@ -36,6 +73,7 @@ shape = SubResource("CapsuleShape2D_3vyb7")
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 offset = Vector2(300, 0)
 zoom = Vector2(0.6, 0.6)
+process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true

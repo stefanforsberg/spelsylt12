@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtmy0shj81mr1"]
+
+[ext_resource type="Script" uid="uid://bba4hu8t00jm0" path="res://scenes/obstacles/paper.gd" id="1_8o5wd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wxrc4"]
+radius = 34.0
+height = 86.0
+
+[node name="Thing" type="Node2D"]
+script = ExtResource("1_8o5wd")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_wxrc4")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(-17, 28, -17.4441, 3.13182, -18, -28, 13, -26, 16, 2, -13, 5)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -3,10 +3,16 @@ class_name LevelBase
 
 var collision_shapes: Array
 @onready var blocks = $Blocks
-# Called when the node enters the scene tree for the first time.
+
+var max_end = 0
+
+
 func _ready():
 	pass # Replace with function body.
+
 	detect_collision_shapes()
+	
+
 
 func _draw():
 	# Print the found shapes for debugging
@@ -20,6 +26,8 @@ func _draw():
 			var height = shape.shape.extents.y * 2
 			top_start = Vector2(-width / 2, -height / 2)
 			top_end = Vector2(width / 2, -height / 2)
+			
+			max_end = max(top_end.x, max_end)
 			
 			#modulate = Color(0, 1.4, 0)  # Green color
 			
@@ -35,6 +43,8 @@ func _draw():
 			# Add points to Line2D
 			line.add_point(top_start)
 			line.add_point(top_end)
+			
+	
 
 func detect_collision_shapes():
 	# Iterate through all children of the current node

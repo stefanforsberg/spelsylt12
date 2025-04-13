@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bthjv48weqbbb"]
+[gd_scene load_steps=6 format=3 uid="uid://bthjv48weqbbb"]
 
 [ext_resource type="PackedScene" uid="uid://crr66uxsc6t4n" path="res://scenes/player.tscn" id="1_j5px3"]
 [ext_resource type="Script" uid="uid://cn31veidop1dh" path="res://scenes/root.gd" id="1_lrqlo"]
+[ext_resource type="Texture2D" uid="uid://1vvtqa4rpw0w" path="res://img/bg.png" id="3_lrqlo"]
+[ext_resource type="Texture2D" uid="uid://nh0j5uskqga7" path="res://img/bg2.png" id="3_sqa0i"]
 
 [sub_resource type="Environment" id="Environment_twpsu"]
 background_mode = 3
@@ -11,10 +13,51 @@ glow_intensity = 0.33
 [node name="Root" type="Node2D"]
 script = ExtResource("1_lrqlo")
 
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = -3
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer2"]
+position = Vector2(1280, 360)
+texture = ExtResource("3_sqa0i")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer2"]
+modulate = Color(1, 1, 1, 0.364706)
+position = Vector2(640, 360)
+texture = ExtResource("3_lrqlo")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer2"]
+modulate = Color(1, 1, 1, 0.698039)
+position = Vector2(506, 495)
+scale = Vector2(-1, 1)
+texture = ExtResource("3_lrqlo")
+
+[node name="Sprite2D4" type="Sprite2D" parent="CanvasLayer2"]
+modulate = Color(1, 1, 1, 0.698039)
+position = Vector2(1786, 503)
+scale = Vector2(-1, 1)
+texture = ExtResource("3_lrqlo")
+
+[node name="LevelRoot" type="Node" parent="."]
+
 [node name="Player" parent="." instance=ExtResource("1_j5px3")]
 position = Vector2(99, -113)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_twpsu")
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Timer" type="Label" parent="CanvasLayer"]
+offset_left = 1121.0
+offset_top = 6.0
+offset_right = 1214.0
+offset_bottom = 51.0
+theme_override_font_sizes/font_size = 32
+
+[node name="Inventory" type="Label" parent="CanvasLayer"]
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 272.0
+offset_bottom = 77.0
+theme_override_font_sizes/font_size = 32
+text = "R P S"

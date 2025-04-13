@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ta2sxavjvrgt"]
+
+[ext_resource type="AudioStream" uid="uid://biny3on324xp3" path="res://sound/spelsylt12.mp3" id="1_tbad1"]
+
+[node name="GlobalAudio" type="Node2D"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_tbad1")
+volume_db = -4.0
+autoplay = true

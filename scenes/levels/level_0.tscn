@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bo6m1c4walsvt"]
+[gd_scene load_steps=8 format=3 uid="uid://bo6m1c4walsvt"]
 
 [ext_resource type="Script" uid="uid://ba81t073o122i" path="res://scenes/levels/level_0.gd" id="1_sxr8l"]
+[ext_resource type="PackedScene" uid="uid://dtmy0shj81mr1" path="res://scenes/obstacles/thing.tscn" id="2_bw3rj"]
+[ext_resource type="PackedScene" uid="uid://5f5nee2ogsrs" path="res://scenes/collect/goal.tscn" id="3_osc7o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ob6x"]
 size = Vector2(3193, 15)
@@ -9,10 +11,10 @@ size = Vector2(3193, 15)
 size = Vector2(2916, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bw3rj"]
-size = Vector2(2645, 20)
+size = Vector2(10199.5, 20)
 
 [sub_resource type="Theme" id="Theme_5ob6x"]
-default_font_size = 96
+default_font_size = 80
 
 [node name="Level0" type="Node2D"]
 script = ExtResource("1_sxr8l")
@@ -34,8 +36,15 @@ shape = SubResource("RectangleShape2D_sxr8l")
 [node name="StaticBody2D3" type="StaticBody2D" parent="Blocks"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D3"]
-position = Vector2(9942, 868)
+position = Vector2(13719.3, 868)
 shape = SubResource("RectangleShape2D_bw3rj")
+
+[node name="Thing" parent="." instance=ExtResource("2_bw3rj")]
+position = Vector2(12878, 779)
+type = 1
+
+[node name="Goal" parent="." instance=ExtResource("3_osc7o")]
+position = Vector2(18722, 767)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -45,6 +54,7 @@ offset_bottom = 40.0
 theme = SubResource("Theme_5ob6x")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 0
 offset_left = 16.0
 offset_top = 149.0
 offset_right = 1094.0
@@ -53,6 +63,7 @@ text = "Welcome to the
 tutorial level"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Control"]
+layout_mode = 0
 offset_left = 2121.0
 offset_top = -108.0
 offset_right = 3199.0
@@ -60,6 +71,7 @@ offset_bottom = 453.0
 text = "You can change form. Try pressing \"e\" to change to scissor and dash"
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="Control"]
+layout_mode = 0
 offset_left = 5612.0
 offset_top = 213.0
 offset_right = 6690.0
@@ -67,13 +79,47 @@ offset_bottom = 576.0
 text = "At the gap press \"e\" again for dash"
 
 [node name="RichTextLabel5" type="RichTextLabel" parent="Control"]
+layout_mode = 0
 offset_left = 7432.0
 offset_top = 351.0
 offset_right = 8510.0
 offset_bottom = 765.0
 text = "And now press \"w\" to change to paper and glide!"
 
+[node name="RichTextLabel6" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = 9255.0
+offset_top = 354.0
+offset_right = 10333.0
+offset_bottom = 806.0
+text = "Your have a limited number of form shifts per level. They are displayed in the top left corner."
+
+[node name="RichTextLabel9" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = 16038.0
+offset_top = 357.0
+offset_right = 17116.0
+offset_bottom = 806.0
+text = "Goal is to complete the level as quickly as possible. Current time is shown in top right corner."
+
+[node name="RichTextLabel7" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = 11964.0
+offset_top = 341.0
+offset_right = 13042.0
+offset_bottom = 826.0
+text = "Avoid colliding with shapes that beat you. Standard rock/paper/scissor rules applies"
+
+[node name="RichTextLabel8" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = 13692.0
+offset_top = 341.0
+offset_right = 14770.0
+offset_bottom = 826.0
+text = "Colliding will result in a time penelty but colliding with the correct form will give you a bonus."
+
 [node name="RichTextLabel3" type="RichTextLabel" parent="Control"]
+layout_mode = 0
 offset_left = 3845.0
 offset_top = 314.0
 offset_right = 4923.0
@@ -81,9 +127,9 @@ offset_bottom = 475.0
 bbcode_enabled = true
 text = "[wave amp=50.0 freq=5.0 connected=1]Good job![/wave]"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="OOB" type="Area2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-polygon = PackedVector2Array(13, 1243, 15217, 1310, 11756, 3475, -5, 3090)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="OOB"]
+polygon = PackedVector2Array(13, 1243, 18971.1, 1286.38, 18931, -21, 19643, 10, 19881, 1450, 11756, 3475, -5, 3090)
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="OOB" to="." method="_on_area_2d_body_entered"]

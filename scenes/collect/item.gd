@@ -1,18 +1,18 @@
 extends Node2D
 
-enum NamedEnum {ROCK, PAPER, SCISSOR = -1}
-@export var x: NamedEnum
+
+@export var x: Startup.NamedEnum
 @onready var sprite_rock = $SpriteRock
 @onready var sprite_paper = $SpritePaper
 @onready var sprite_scissor = $SpriteScissor
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if x == NamedEnum.ROCK:
+	if x == Startup.NamedEnum.ROCK:
 		sprite_rock.visible = true
-	elif x == NamedEnum.PAPER:
+	elif x == Startup.NamedEnum.PAPER:
 		sprite_paper.visible = true
-	elif x == NamedEnum.SCISSOR:
+	elif x == Startup.NamedEnum.SCISSOR:
 		sprite_scissor.visible = true
 		
 	pass # Replace with function body.

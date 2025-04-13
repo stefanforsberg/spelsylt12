@@ -1,8 +1,10 @@
 extends CharacterBody2D
-@onready var player_stone = $PlayerStone
-@onready var player_paper = $PlayerPaper
-@onready var player_scissor = $PlayerScissor
+@onready var player_stone = $Sprites/PlayerStone
+@onready var player_paper = $Sprites/PlayerPaper
+@onready var player_scissor = $Sprites/PlayerScissor
+
 @onready var floor_detector = $FloorDetector
+@onready var dash = $Dash
 
 
 const SPEED = 600.0
@@ -22,14 +24,16 @@ func _physics_process(delta):
 		player_paper.visible = false
 		player_stone.visible = true
 		
-	if Input.is_action_just_pressed("paper") and !is_on_floor():
+	if Input.is_action_just_pressed("paper") and !is_on_floor() and Startup.inventory[Startup.NamedEnum.PAPER] > 0:
 		currentState = "paper"
 		player_scissor.visible = false
 		player_paper.visible = true
 		player_stone.visible = false
 		rotation = 0
 		
-	if Input.is_action_just_pressed("scissor") and is_on_floor():
+	if Input.is_action_just_pressed("scissor") and Startup.inventory[Startup.NamedEnum.SCISSOR] > 0:
+		dash.restart()
+		Startup.updateInventory(Startup.NamedEnum.SCISSOR,-1)
 		currentState = "scissor"
 		player_scissor.visible = true
 		player_paper.visible = false
@@ -53,15 +57,6 @@ func _physics_process(delta):
 		#rotation += 0.25
 		player_stone.rotation += 0.25
 
-		## Get the input direction and handle the movement/deceleration.
-		## As good practice, you should replace UI actions with custom gameplay actions.
-		#var direction = Input.get_axis("ui_left", "ui_right")
-		#if direction:
-			#velocity.x = direction * SPEED
-			#rotation += direction/4
-		#else:
-			#velocity.x = move_toward(velocity.x, 0, SPEED)
-			#
 	elif currentState == "paper":
 		
 		if is_on_floor():
@@ -73,11 +68,6 @@ func _physics_process(delta):
 
 			velocity.y = move_toward(velocity.y, 100, 30)
 			velocity.x = move_toward(velocity.x, SPEED, 30)
-			
-		
-				# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
-			
 	elif currentState == "scissor":
 
 		if velocity.y > -10 and is_on_floor():
@@ -87,11 +77,6 @@ func _physics_process(delta):
 			player_stone.visible = true
 		else:
 			
-		#scissor_aim.rotation = 0
-		#stateIndex+=1
-		
-		#velocity.x = SPEED
-		
 			velocity += get_gravity() * delta
 			
 			velocity.x = move_toward(velocity.x, SPEED, SPEED/10)
@@ -105,37 +90,12 @@ func _physics_process(delta):
 	if floor_detector.is_colliding():
 		var floor = floor_detector.get_collider()
 		if floor != current_floor:
-			#reset_previous_floor_color()
 			current_floor = floor
 			current_floor.modulate = Color(4,0,0)
-			#change_floor_color(current_floor, Color(1, 0, 0)) # Example: Red
 	else:
 		if current_floor:
 			current_floor.modulate = Color(1,0,0)
 			current_floor = null
-			#reset_previous_floor_color()
-	
-	#var nextCollision = null
-	#
-	#print(nextCollision, current_collision)
-#
-	#for i in get_slide_collision_count():
-		#var collision = get_slide_collision(i)
-		#
-		#print(collision.normal)
-		#
-		#if collision.normal == Vector2.UP:
-			#print("floor")
-		##var collider = collision.get_collider()
-		##if collider is StaticBody2D:
-			##
-			##
-			##
-			##nextCollision = collider
-			###print("Collided with: ", collision.get_collider().name)
-			###print(collision.get_collider().modulate)
-			##collider.modulate = Color(4,0,0)
-
 	
 func wind():
 	print("wind!")
