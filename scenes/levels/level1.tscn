@@ -14,6 +14,7 @@ size = Vector2(1629.5, 20)
 size = Vector2(1254, 20)
 
 [node name="Level1" type="Node2D"]
+rotation = -0.000376096
 script = ExtResource("1_dd0lh")
 
 [node name="Blocks" type="Node" parent="."]
@@ -45,10 +46,11 @@ position = Vector2(1513, 454)
 type = 1
 
 [node name="Thing2" parent="Obstacles" instance=ExtResource("4_bfxgj")]
-position = Vector2(2739, 493)
+position = Vector2(2806, 280)
 
 [node name="Goal" parent="." instance=ExtResource("5_dywbp")]
-position = Vector2(4174, 677)
+position = Vector2(4182.74, 684.573)
+rotation = -0.184056
 
 [node name="OOB" type="Area2D" parent="."]
 
@@ -56,4 +58,19 @@ position = Vector2(4174, 677)
 position = Vector2(0, 947)
 polygon = PackedVector2Array(-10, -11, 789, 44, 2241, 131, 3606, 274, 4516, 127, 4539, -1436, 4760, -1495, 4773, 393, 3634, 517, 2200, 320, 753, 209, 13, 177)
 
+[node name="Label" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.196078)
+offset_left = 4416.69
+offset_top = 818.661
+offset_right = 4626.69
+offset_bottom = 852.661
+theme_override_font_sizes/font_size = 24
+text = "Never touch grass"
+
+[node name="Grass" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Grass"]
+polygon = PackedVector2Array(1.81007, 505.001, 1557.81, 502.586, 1557.79, 554.586, 1469.74, 694.553, 3090.74, 687.162, 3072.64, 970.156, 4351.73, 721.637, 4371.62, 1009.64, 1364.58, 1127.51, 4.70326, 789.002)
+
 [connection signal="body_entered" from="OOB" to="." method="_on_oob_body_entered"]
+[connection signal="body_entered" from="Grass" to="." method="_on_grass_body_entered"]

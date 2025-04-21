@@ -1,9 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2hc4wbbfjp5w"]
+[gd_scene load_steps=10 format=3 uid="uid://c2hc4wbbfjp5w"]
 
 [ext_resource type="Script" uid="uid://c51ybkvctk58v" path="res://scenes/wind.gd" id="1_wx8gj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rdwks"]
-size = Vector2(135.5, 185.5)
+size = Vector2(100, 185.5)
+
+[sub_resource type="Curve" id="Curve_2kodj"]
+_data = [Vector2(0.0328467, 0.979675), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4pwos"]
+curve = SubResource("Curve_2kodj")
+
+[sub_resource type="Curve" id="Curve_wx8gj"]
+_data = [Vector2(0, 0.142276), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.0650406), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_p78np"]
+_limits = [0.0, 1.0, 0.0474453, 1.0]
+_data = [Vector2(0.0474453, 0.00813007), 0.0, 0.0, 0, 0, Vector2(0.569343, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_yawee"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_2kodj"]
+curve_x = SubResource("Curve_wx8gj")
+curve_y = SubResource("Curve_p78np")
+curve_z = SubResource("Curve_yawee")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4pwos"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100, 1, 1)
+gravity = Vector3(0, -200, 0)
+scale_min = 0.0
+scale_max = 40.0
+scale_curve = SubResource("CurveXYZTexture_2kodj")
+alpha_curve = SubResource("CurveTexture_4pwos")
+turbulence_enabled = true
+turbulence_noise_speed_random = 1.46
 
 [node name="Wind" type="Node2D"]
 script = ExtResource("1_wx8gj")
@@ -13,6 +50,13 @@ script = ExtResource("1_wx8gj")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-1, -94)
 shape = SubResource("RectangleShape2D_rdwks")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 200
+lifetime = 6.0
+preprocess = 6.0
+speed_scale = 2.0
+process_material = SubResource("ParticleProcessMaterial_4pwos")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

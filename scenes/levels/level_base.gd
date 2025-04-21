@@ -36,7 +36,12 @@ func _draw():
 
 			# Customize the Line2D appearance
 			line.width = 4
-			line.default_color = Color(2, 0, 0)  # Red color
+			
+			if shape.get_parent().get_meta("Breakable", false):
+				line.default_color = Color(0, 2, 2)
+				
+			else:
+				line.default_color = Color(2, 0, 0)
 			
 			line.clear_points()
 
@@ -47,7 +52,6 @@ func _draw():
 	
 
 func detect_collision_shapes():
-	# Iterate through all children of the current node
 	for child in blocks.get_children():
 		if child is CollisionShape2D:
 			collision_shapes.append(child)

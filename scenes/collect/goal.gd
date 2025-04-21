@@ -12,4 +12,5 @@ func _process(delta):
 
 
 func _on_area_2d_body_entered(body):
-	Startup.goal()
+	if body is CharacterBody2D:
+		Startup.goal()

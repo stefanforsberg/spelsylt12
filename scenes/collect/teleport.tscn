@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://8fi4ymndo7yp"]
+
+[ext_resource type="Script" uid="uid://48w6edt7sfpc" path="res://scenes/collect/teleport.gd" id="1_5kvtn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5kvtn"]
+size = Vector2(386, 20)
+
+[sub_resource type="Curve" id="Curve_thbar"]
+_data = [Vector2(0, 0.865169), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2mbum"]
+curve = SubResource("Curve_thbar")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hltr0"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(-200, 1, 1)
+gravity = Vector3(0, 98, 0)
+scale_max = 15.0
+color = Color(0.552941, 0.517647, 1, 1)
+alpha_curve = SubResource("CurveTexture_2mbum")
+
+[node name="Teleport" type="Node2D"]
+script = ExtResource("1_5kvtn")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_5kvtn")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Marker2D"]
+position = Vector2(9, -540)
+amount = 64
+lifetime = 1.4
+process_material = SubResource("ParticleProcessMaterial_hltr0")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 64
+lifetime = 1.4
+process_material = SubResource("ParticleProcessMaterial_hltr0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

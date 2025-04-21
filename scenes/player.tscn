@@ -1,14 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://crr66uxsc6t4n"]
+[gd_scene load_steps=23 format=3 uid="uid://crr66uxsc6t4n"]
 
 [ext_resource type="Script" uid="uid://blcsx57346pq7" path="res://scenes/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://cj0qohrmks42a" path="res://img/player/rock.png" id="2_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dsv1i7r320lmx" path="res://img/player/paper.png" id="3_qlg0r"]
 [ext_resource type="Shader" uid="uid://dvynvu38vku6b" path="res://scenes/shaders/paper_bag.gdshader" id="3_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://vwjntesf0ow5" path="res://img/player/scissor.png" id="4_tuyoq"]
+[ext_resource type="AudioStream" uid="uid://offamdrs6xc5" path="res://sound/jump (1).wav" id="6_fjrip"]
+[ext_resource type="AudioStream" uid="uid://c7tbcpqd1nemo" path="res://sound/explosion.wav" id="7_fjrip"]
+[ext_resource type="AudioStream" uid="uid://c2gwdto8vxity" path="res://sound/laserShoot.wav" id="7_smehm"]
+[ext_resource type="AudioStream" uid="uid://wpegasbuo7hj" path="res://sound/wind.wav" id="8_smehm"]
+[ext_resource type="AudioStream" uid="uid://cf2tfgb2bypqf" path="res://sound/powerUp.wav" id="10_d2wvv"]
+[ext_resource type="AudioStream" uid="uid://dqq05p5ajeuol" path="res://sound/hitHurt.wav" id="11_3v2ag"]
 
 [sub_resource type="Curve" id="Curve_dqkch"]
-_data = [Vector2(0.0397727, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0.0397727, 0), 0.0, 0.0, 0, 0, Vector2(0.375, 0.932584), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_dqkch"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -18,6 +24,46 @@ shader = ExtResource("3_tuyoq")
 shader_parameter/amplitude = 2.526
 shader_parameter/frequency = 8.736
 shader_parameter/speed = 3.315
+
+[sub_resource type="Curve" id="Curve_tuyoq"]
+_data = [Vector2(0.102941, 0.0337079), 0.0, 0.0, 0, 0, Vector2(0.367647, 0.685393), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fjrip"]
+curve = SubResource("Curve_tuyoq")
+
+[sub_resource type="Curve" id="Curve_ur7pv"]
+_limits = [-718.83, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 200), 0.0, 0.0, 0, 0, Vector2(0.99999, -200), 0.0, 0.0, 0, 0, Vector2(1, 200), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_y4r1p"]
+curve = SubResource("Curve_ur7pv")
+
+[sub_resource type="Curve" id="Curve_qlg0r"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.544118, 0.921348), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_tuyoq"]
+curve = SubResource("Curve_qlg0r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qlg0r"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0, 10, 0.1)
+direction = Vector3(0, -1, 0)
+spread = 88.916
+initial_velocity_min = 30.0
+initial_velocity_max = 36.0
+gravity = Vector3(300, -1000, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = 18.46
+linear_accel_curve = SubResource("CurveTexture_y4r1p")
+scale_min = 0.02
+scale_max = 0.6
+scale_curve = SubResource("CurveTexture_tuyoq")
+color = Color(0.999998, 0.869215, 0.991758, 1)
+alpha_curve = SubResource("CurveTexture_fjrip")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vyb7"]
 radius = 43.0
@@ -29,11 +75,14 @@ height = 86.0
 script = ExtResource("1_g2els")
 
 [node name="FloorDetector" type="RayCast2D" parent="CharacterBody2D"]
+target_position = Vector2(0, 86)
 
 [node name="Dash" type="CPUParticles2D" parent="CharacterBody2D"]
+modulate = Color(1, 1, 0, 1)
 position = Vector2(98, -49)
 emitting = false
 amount = 100
+texture = ExtResource("4_tuyoq")
 lifetime = 1.55
 one_shot = true
 speed_scale = 3.59
@@ -45,7 +94,8 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 10.1
 initial_velocity_max = 40.4
 angular_velocity_max = 130.91
-scale_amount_max = 20.0
+scale_amount_min = 0.03
+scale_amount_max = 1.2
 scale_amount_curve = SubResource("Curve_dqkch")
 color = Color(1, 1, 1, 0.67451)
 color_ramp = SubResource("Gradient_dqkch")
@@ -53,31 +103,63 @@ color_ramp = SubResource("Gradient_dqkch")
 [node name="Sprites" type="Node2D" parent="CharacterBody2D"]
 
 [node name="PlayerStone" type="Sprite2D" parent="CharacterBody2D/Sprites"]
+modulate = Color(0, 1, 1, 1)
 position = Vector2(-2, -3)
 texture = ExtResource("2_dqkch")
 
 [node name="PlayerPaper" type="Sprite2D" parent="CharacterBody2D/Sprites"]
 visible = false
+modulate = Color(1, 0.862745, 1, 1)
 material = SubResource("ShaderMaterial_fjrip")
 texture = ExtResource("3_qlg0r")
 
 [node name="PlayerScissor" type="Sprite2D" parent="CharacterBody2D/Sprites"]
 visible = false
+modulate = Color(1, 1, 0, 1)
 rotation = 1.5708
 texture = ExtResource("4_tuyoq")
 
+[node name="GPUParticles2DLand" type="GPUParticles2D" parent="CharacterBody2D"]
+modulate = Color(0, 1, 1, 1)
+position = Vector2(55, 50)
+emitting = false
+amount = 30
+texture = ExtResource("2_dqkch")
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.69
+process_material = SubResource("ParticleProcessMaterial_qlg0r")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+visible = false
 position = Vector2(-2, -2)
 shape = SubResource("CapsuleShape2D_3vyb7")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-offset = Vector2(300, 0)
+offset = Vector2(650, 0)
 zoom = Vector2(0.6, 0.6)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
-drag_horizontal_enabled = true
 drag_vertical_enabled = true
-drag_vertical_offset = 0.49
-drag_left_margin = 0.5
-drag_top_margin = 0.23
+drag_top_margin = 0.4
+drag_bottom_margin = 0.4
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_fjrip")
+
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_smehm")
+
+[node name="Wind" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_smehm")
+volume_db = -5.622
+
+[node name="ExplosionBreak" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_fjrip")
+
+[node name="Powerup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_d2wvv")
+
+[node name="Hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_3v2ag")

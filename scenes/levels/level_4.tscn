@@ -1,0 +1,122 @@
+[gd_scene load_steps=12 format=3 uid="uid://d1p6f2d4i3ycf"]
+
+[ext_resource type="Script" uid="uid://de2erhlj4djdk" path="res://scenes/levels/level_4.gd" id="1_06474"]
+[ext_resource type="PackedScene" uid="uid://c2hc4wbbfjp5w" path="res://scenes/wind.tscn" id="2_vmkp1"]
+[ext_resource type="PackedScene" uid="uid://dtmy0shj81mr1" path="res://scenes/obstacles/thing.tscn" id="3_w6h2s"]
+[ext_resource type="PackedScene" uid="uid://5f5nee2ogsrs" path="res://scenes/collect/goal.tscn" id="4_ogj6a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_06474"]
+size = Vector2(536.25, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmkp1"]
+size = Vector2(644, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6h2s"]
+size = Vector2(1910.5, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ogj6a"]
+size = Vector2(2301, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_anwe6"]
+size = Vector2(912, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rej77"]
+size = Vector2(1168, 72.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vn0v"]
+size = Vector2(1301, 20)
+
+[node name="Level_4" type="Node2D"]
+script = ExtResource("1_06474")
+
+[node name="Blocks" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Blocks"]
+position = Vector2(17, -89)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D"]
+position = Vector2(256, 87)
+shape = SubResource("RectangleShape2D_06474")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1214, -66)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D2"]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_vmkp1")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Blocks"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D3"]
+position = Vector2(3795, -263)
+shape = SubResource("RectangleShape2D_w6h2s")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3186, 710)
+rotation = 0.0958649
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D4"]
+position = Vector2(-3, 6)
+shape = SubResource("RectangleShape2D_ogj6a")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Blocks"]
+position = Vector2(5382, 690)
+rotation = -0.436006
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D5"]
+position = Vector2(3, -4)
+shape = SubResource("RectangleShape2D_anwe6")
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="Blocks"]
+position = Vector2(261, -8)
+metadata/Breakable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D6"]
+position = Vector2(7788, 589)
+shape = SubResource("RectangleShape2D_rej77")
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="Blocks"]
+position = Vector2(10759, 750)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D7"]
+position = Vector2(261, -3)
+shape = SubResource("RectangleShape2D_5vn0v")
+
+[node name="Wind" parent="." instance=ExtResource("2_vmkp1")]
+position = Vector2(1996, 270)
+width = 400
+
+[node name="Wind2" parent="." instance=ExtResource("2_vmkp1")]
+position = Vector2(2430, -25)
+width = 400
+
+[node name="OOB" type="Area2D" parent="."]
+position = Vector2(-94, 490)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="OOB"]
+position = Vector2(-10, 734)
+polygon = PackedVector2Array(-1, 351, 13816, 225, 14494, 412, -23, 502)
+
+[node name="Zoom" type="Node" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Zoom"]
+position = Vector2(3305, -834)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zoom/Area2D"]
+position = Vector2(43, 0)
+polygon = PackedVector2Array(-1035, -285, 2123, -285, 2541, 205, 4258, 421, 3810, 1618, 1287, 2065, -386, 1907, -487, 1258, -1352, 566)
+
+[node name="Things" type="Node" parent="."]
+
+[node name="Thing" parent="Things" instance=ExtResource("3_w6h2s")]
+position = Vector2(5202, -228)
+
+[node name="Thing2" parent="Things" instance=ExtResource("3_w6h2s")]
+position = Vector2(5625, -98)
+
+[node name="Goal" parent="Things" instance=ExtResource("4_ogj6a")]
+position = Vector2(11619, 676)
+
+[connection signal="body_entered" from="OOB" to="." method="_on_oob_body_entered"]
+[connection signal="body_entered" from="Zoom/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Zoom/Area2D" to="." method="_on_area_2d_body_exited"]

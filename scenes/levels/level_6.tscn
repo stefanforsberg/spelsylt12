@@ -1,0 +1,199 @@
+[gd_scene load_steps=19 format=3 uid="uid://cjo4nm4ov8l31"]
+
+[ext_resource type="PackedScene" uid="uid://8fi4ymndo7yp" path="res://scenes/collect/teleport.tscn" id="1_gfuhv"]
+[ext_resource type="Script" uid="uid://dif3mdicgycll" path="res://scenes/levels/level_6.gd" id="1_y2agi"]
+[ext_resource type="PackedScene" uid="uid://dtmy0shj81mr1" path="res://scenes/obstacles/thing.tscn" id="3_g44gb"]
+[ext_resource type="PackedScene" uid="uid://5f5nee2ogsrs" path="res://scenes/collect/goal.tscn" id="4_741xk"]
+
+[sub_resource type="Curve" id="Curve_thbar"]
+_data = [Vector2(0, 0.865169), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2mbum"]
+curve = SubResource("Curve_thbar")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g44gb"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(-200, 1, 1)
+gravity = Vector3(0, 98, 0)
+scale_max = 15.0
+color = Color(0.552941, 0.517647, 1, 1)
+alpha_curve = SubResource("CurveTexture_2mbum")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_741xk"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(-200, 1, 1)
+gravity = Vector3(0, 98, 0)
+scale_max = 15.0
+color = Color(0.944781, 0.384671, 0.390982, 1)
+alpha_curve = SubResource("CurveTexture_2mbum")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ncucs"]
+size = Vector2(849, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g44gb"]
+size = Vector2(1949, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_741xk"]
+size = Vector2(2514, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i0fhw"]
+size = Vector2(1491, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wshb"]
+size = Vector2(1353, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2agi"]
+size = Vector2(1353.5, 1170.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7x7cx"]
+size = Vector2(580, 147)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e18e5"]
+size = Vector2(621, 113.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6i88"]
+size = Vector2(438, 107.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5qie"]
+size = Vector2(335, 1256)
+
+[node name="Level6" type="Node2D"]
+script = ExtResource("1_y2agi")
+
+[node name="Teleport" parent="." instance=ExtResource("1_gfuhv")]
+position = Vector2(999, 136)
+
+[node name="CollisionShape2D" parent="Teleport/Area2D" index="0"]
+position = Vector2(183, 0)
+
+[node name="Marker2D" parent="Teleport" index="1"]
+position = Vector2(165, -652)
+
+[node name="GPUParticles2D2" parent="Teleport/Marker2D" index="0"]
+position = Vector2(14, 7)
+process_material = SubResource("ParticleProcessMaterial_g44gb")
+
+[node name="GPUParticles2D" parent="Teleport" index="2"]
+position = Vector2(186, 4)
+process_material = SubResource("ParticleProcessMaterial_g44gb")
+
+[node name="Teleport2" parent="." instance=ExtResource("1_gfuhv")]
+position = Vector2(4480, 129)
+
+[node name="Marker2D" parent="Teleport2" index="1"]
+position = Vector2(-5123, -1376)
+
+[node name="GPUParticles2D2" parent="Teleport2/Marker2D" index="0"]
+position = Vector2(4, -7)
+process_material = SubResource("ParticleProcessMaterial_741xk")
+
+[node name="GPUParticles2D" parent="Teleport2" index="2"]
+process_material = SubResource("ParticleProcessMaterial_741xk")
+
+[node name="Blocks" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Blocks"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D"]
+position = Vector2(406.5, 68)
+shape = SubResource("RectangleShape2D_ncucs")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3142, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D2"]
+position = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_g44gb")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Blocks"]
+position = Vector2(589, -857)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D3"]
+position = Vector2(5, -26.5)
+shape = SubResource("RectangleShape2D_741xk")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3414, -919)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D4"]
+position = Vector2(545.5, 2)
+shape = SubResource("RectangleShape2D_i0fhw")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Blocks"]
+position = Vector2(4804, -11)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/StaticBody2D5"]
+position = Vector2(666.5, 0)
+shape = SubResource("RectangleShape2D_5wshb")
+
+[node name="Things" type="Node" parent="."]
+
+[node name="Thing" parent="Things" instance=ExtResource("3_g44gb")]
+position = Vector2(1051, -972)
+type = -1
+
+[node name="Thing2" parent="Things" instance=ExtResource("3_g44gb")]
+position = Vector2(1236, -973)
+type = -1
+
+[node name="Thing3" parent="Things" instance=ExtResource("3_g44gb")]
+position = Vector2(1422, -970)
+type = -1
+
+[node name="Goal" parent="Things" instance=ExtResource("4_741xk")]
+position = Vector2(6059, -83)
+
+[node name="Thing4" parent="Things" instance=ExtResource("3_g44gb")]
+position = Vector2(3517, -987)
+type = -1
+
+[node name="Thing" parent="Things/Thing4" instance=ExtResource("3_g44gb")]
+position = Vector2(1098, 9)
+type = -1
+
+[node name="Zoom" type="Node" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Zoom"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zoom/Area2D"]
+position = Vector2(1137, -190)
+shape = SubResource("RectangleShape2D_y2agi")
+
+[node name="AreaLowGravity" type="Area2D" parent="Zoom"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zoom/AreaLowGravity"]
+position = Vector2(4498, 126.5)
+shape = SubResource("RectangleShape2D_7x7cx")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Zoom/AreaLowGravity"]
+position = Vector2(1197, 133)
+shape = SubResource("RectangleShape2D_e18e5")
+
+[node name="AreaNormalGravity" type="Area2D" parent="Zoom"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zoom/AreaNormalGravity"]
+position = Vector2(-460, -961)
+shape = SubResource("RectangleShape2D_b6i88")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Zoom/AreaNormalGravity"]
+position = Vector2(1707.5, -210)
+shape = SubResource("RectangleShape2D_m5qie")
+
+[node name="OOB2" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="OOB2"]
+polygon = PackedVector2Array(-20, 537, 1495, 762, 4186, 836, 7062, 350, 6795, -1743, 9731, -1093, 10847, 207, 10943, 941, 29, 1118)
+
+[connection signal="body_entered" from="Zoom/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Zoom/Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Zoom/AreaLowGravity" to="." method="_on_area_low_gravity_body_entered"]
+[connection signal="body_entered" from="Zoom/AreaNormalGravity" to="." method="_on_area_normal_gravity_body_entered"]
+[connection signal="body_entered" from="OOB2" to="." method="_on_oob_2_body_entered"]
+
+[editable path="Teleport"]
+[editable path="Teleport2"]

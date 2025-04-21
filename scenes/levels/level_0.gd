@@ -4,8 +4,8 @@ extends LevelBase
 func _ready():
 	super()
 	
-	Startup.inventory[Startup.NamedEnum.PAPER] = 5
-	Startup.inventory[Startup.NamedEnum.SCISSOR] = 5
+	Startup.inventory[Startup.NamedEnum.PAPER] = 15
+	Startup.inventory[Startup.NamedEnum.SCISSOR] = 15
 
 #func _draw():
 	#super()

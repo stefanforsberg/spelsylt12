@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://5f5nee2ogsrs"]
+[gd_scene load_steps=4 format=3 uid="uid://5f5nee2ogsrs"]
 
 [ext_resource type="Script" uid="uid://db488cc14td5b" path="res://scenes/collect/goal.gd" id="1_vwpup"]
+[ext_resource type="Texture2D" uid="uid://b8si0vebxwphj" path="res://img/Goal.png" id="2_g6ulo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_po7gw"]
 size = Vector2(85, 116)
@@ -14,7 +15,8 @@ script = ExtResource("1_vwpup")
 position = Vector2(-2, 1)
 shape = SubResource("RectangleShape2D_po7gw")
 
-[node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(25, -26, -8, -43, -33, -11, -36, 45, 21, 35, 19, 9, -8, 9)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3, -22)
+texture = ExtResource("2_g6ulo")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
